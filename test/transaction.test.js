@@ -9,6 +9,7 @@ const transaction = require('../src/index');
 const DEFINE = require('../src/define');
 const utils = require('../src/utils');
 const ERRORS = DEFINE.ERROR_TYPE;
+const NO_PUSHALL = process.env.NO_PUSHALL === '1';
 
 let connection;
 let Test;
@@ -45,6 +46,7 @@ const getNative = async function getNative() {
 
 TestSchema.methods.getNative = getNative;
 transaction.TransactionSchema.methods.getNative = getNative;
+transaction.TransactionSchema.options.usePushEach = NO_PUSHALL;
 before(ma(async() => {
     await initialize.promise();
 
