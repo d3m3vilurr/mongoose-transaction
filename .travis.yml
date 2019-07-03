@@ -2,12 +2,12 @@ language: node_js
 
 node_js:
     - 8
-    - 10
-    - 12
+    #- 10
+    #- 12
 
 env:
     - MONGOOSE_VERSION=4.6.x MONGODB=3.4.21
-    - MONGOOSE_VERSION=4.7.x MONGODB=3.4.21
+    #- MONGOOSE_VERSION=4.7.x MONGODB=3.4.21
 
 matrix:
     fast_finish: true
