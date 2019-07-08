@@ -140,9 +140,31 @@ module.exports.plugin = (schema) => {
                 }, callback);
             };
         });
-    } else {
+    } else if (DEFINE.MONGOOSE_VERSIONS[0] == 4) {
         schema.pre('save', function preSaveHook(next, callback) {
             this._saveWithoutTransaction(next, callback);
+        });
+    } else {
+        // >= 5
+        schema.post('init', function postInitHook() {
+            const self = this;
+            self._oldSave = self.save;
+            self.save = (callback) => {
+                self._oldSave(function(err) {
+                    if (err && err.message === ERROR_TYPE.NORMAL) {
+                        return callback();
+                    }
+                    callback(err);
+                });
+            };
+        });
+
+        schema.pre('save', async function preSaveHook() {
+            const needToReject = !this.isNew;
+            await this._saveWithoutTransaction(() => {});
+            if (needToReject) {
+                throw new TransactionError(ERROR_TYPE.NORMAL);
+            }
         });
     }
 
