@@ -38,7 +38,7 @@ before_script:
 script:
     - cp test/config.js.sample test/config.js
     - npm install -d
-    - rm -rf node_modules/mongo*
+    - npm uninstall mongoose
     - npm install mongoose@${MONGOOSE_VERSION}
     - npm test
 
