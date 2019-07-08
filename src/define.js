@@ -6,6 +6,7 @@ const MONGOOSE_VERSIONS = mongoose.version.split('.').map((x) => {
 });
 
 const ERROR_TYPE = {
+    NORMAL: -1,
     BROKEN_DATA: 40,
     SOMETHING_WRONG: 41, // data not found or mongo response error
     TRANSACTION_CONFLICT_1: 42, // sequence save

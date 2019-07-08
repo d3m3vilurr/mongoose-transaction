@@ -36,7 +36,7 @@
 'use strict';
 const Promise = require('songbird');
 const mongoose = require('mongoose');
-const mongooseutils = require('mongoose/lib/utils');
+const pluralize = require('mongoose-legacy-pluralize');
 const _ = require('lodash');
 const atomic = require('./atomic');
 const utils = require('./utils');
@@ -55,7 +55,7 @@ const TransactionSchema = new mongoose.Schema({
 
 TransactionSchema.TRANSACTION_COLLECTION = 'Transaction';
 TransactionSchema.RAW_TRANSACTION_COLLECTION =
-    mongooseutils.toCollectionName(TransactionSchema.TRANSACTION_COLLECTION);
+    pluralize(TransactionSchema.TRANSACTION_COLLECTION);
 TransactionSchema.TRANSACTION_EXPIRE_GAP = ONE_MINUTE;
 
 TransactionSchema.attachShardKey = (doc) => {

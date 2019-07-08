@@ -355,14 +355,9 @@ describe('Find documents from model', () => {
 
             const ndocs = await Test.promise.findNative({});
             should.exists(ndocs);
-            const count = await ndocs.promise.count();
-            should.exists(count);
-            console.log(count);
-            count.should.not.eql(0);
-            ndocs.rewind();
             const docs = await ndocs.promise.toArray();
+            docs.length.should.not.eql(0);
             should.exists(docs);
-            docs.length.should.eql(count);
             docs.forEach((x) => x.t.should.eql(transaction.NULL_OBJECTID));
         }),
     );
