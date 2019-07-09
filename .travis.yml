@@ -16,6 +16,9 @@ env:
     - MONGOOSE_VERSION=4.7.x MONGODB=4.0.10 NO_PUSHALL=1
     - MONGOOSE_VERSION=4.x MONGODB=4.0.10 NO_PUSHALL=1
     - MONGOOSE_VERSION=5.x MONGODB=4.0.10 NO_PUSHALL=1 USE_NEW_MONGO_URL_PARSER=1 USE_FIND_AND_MODIFY=0 USE_CREATE_INDEX=1 USE_UNIFIED_TOPOLOGY=1
+    - MONGOOSE_VERSION=4.7.x MONGODB=ubuntu1604-4.2.0-rc2 NO_PUSHALL=1
+    - MONGOOSE_VERSION=4.x MONGODB=ubuntu1604-4.2.0-rc2 NO_PUSHALL=1
+    - MONGOOSE_VERSION=5.x MONGODB=ubuntu1604-4.2.0-rc2 NO_PUSHALL=1 USE_NEW_MONGO_URL_PARSER=1 USE_FIND_AND_MODIFY=0 USE_CREATE_INDEX=1 USE_UNIFIED_TOPOLOGY=1
 
 matrix:
     fast_finish: true
@@ -29,6 +32,7 @@ install:
     - test -f ${HOME}/.cache/mongodb/mongodb-linux-x86_64-3.4.21/bin/mongod || curl -L http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.21.tgz | tar xz -C ${HOME}/.cache/mongodb
     - test -f ${HOME}/.cache/mongodb/mongodb-linux-x86_64-3.6.13/bin/mongod || curl -L http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.6.13.tgz | tar xz -C ${HOME}/.cache/mongodb
     - test -f ${HOME}/.cache/mongodb/mongodb-linux-x86_64-4.0.10/bin/mongod || curl -L http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.10.tgz | tar xz -C ${HOME}/.cache/mongodb
+    - test -f ${HOME}/.cache/mongodb/mongodb-linux-x86_64-ubuntu1604-4.2.0-rc2/bin/mongod || curl -L http://downloads.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.2.0-rc2.tgz | tar xz -C ${HOME}/.cache/mongodb
 
 before_script:
     - mkdir -p ${PWD}/mongodb/data
