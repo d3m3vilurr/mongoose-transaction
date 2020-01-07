@@ -14,6 +14,7 @@ const NO_PUSHALL = process.env.NO_PUSHALL === '1';
 const USE_NEW_MONGO_URL_PARSER = process.env.USE_NEW_MONGO_URL_PARSER === '1';
 const USE_FIND_AND_MODIFY = process.env.USE_FIND_AND_MODIFY !== '0';
 const USE_CREATE_INDEX = process.env.USE_CREATE_INDEX === '1';
+const USE_UNIFIED_TOPOLOGY = process.env.USE_UNIFIED_TOPOLOGY === '1';
 
 let connection;
 let Test;
@@ -38,6 +39,7 @@ const initialize = (callback) => {
     mongoose.set('useFindAndModify', USE_FIND_AND_MODIFY);
     mongoose.set('useCreateIndex', USE_CREATE_INDEX);
     mongoose.set('useNewUrlParser', USE_NEW_MONGO_URL_PARSER);
+    mongoose.set('useUnifiedTopology', USE_UNIFIED_TOPOLOGY);
     connection = mongoose.createConnection(uri, callback);
 };
 
