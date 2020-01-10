@@ -1259,4 +1259,31 @@ describe('fix find problem with custom shard key with $in operator', () => {
         await t.find(Data, {_id: {$in: ids}});
     }));
 });
+
+describe('wrap save', () => {
+    it(
+        'should return the promise if does not pass the callback',
+        ma(async() => {
+            const doc = new Test();
+            const promise = doc.save();
+            should.exists(promise.then);
+            should.exists(promise.catch);
+            await promise;
+        }),
+    );
+
+    it(
+        'should return the promise when calling save method of old doc',
+        ma(async() => {
+            const id = (await createSavedTestDoc())._id;
+            const doc = await Test.promise.findOne({_id: id});
+            doc.num = 2;
+            const promise = doc.save();
+            should.exists(promise.then);
+            should.exists(promise.catch);
+            await promise;
+            (await Test.promise.findOne({_id: id})).num.should.eql(2);
+        }),
+    );
+});
 // vim: et ts=4 sw=4 sts=4 colorcolumn=80

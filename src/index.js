@@ -137,13 +137,22 @@ module.exports.plugin = (schema) => {
         schema.post('init', function postInitHook() {
             const self = this;
             self._oldSave = self.save;
-            self.save = (callback) => {
-                self._oldSave((err) => {
-                    if (err && err.message === ERROR_TYPE.NORMAL) {
-                        return callback();
+            self.save = async(callback) => {
+                if (!callback) {
+                    callback = (err) => {
+                        if (err) {
+                            throw err;
+                        }
+                    };
+                }
+                try {
+                    await self.promise._oldSave();
+                } catch (err) {
+                    if (err.message !== ERROR_TYPE.NORMAL) {
+                        return callback(err);
                     }
-                    callback(err);
-                });
+                }
+                callback();
             };
         });
 
